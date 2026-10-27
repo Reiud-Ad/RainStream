@@ -1,0 +1,20 @@
+# Files that are executed on Linux (inside the Docker build) MUST keep LF endings.
+# With CRLF, the kernel reads the shebang as `bash\r` and the build dies with
+#   /usr/bin/env: 'bash\r': No such file or directory   (exit 127)
+# which is what happened on 20.08.2026.
+*.sh            text eol=lf
+*.Dockerfile    text eol=lf
+Dockerfile      text eol=lf
+CMakeLists.txt  text eol=lf
+*.cmake         text eol=lf
+*.toml          text eol=lf
+
+# Windows batch must stay CRLF.
+*.bat           text eol=crlf
+
+# Never touch binaries.
+*.lt            binary
+*.exe           binary
+*.dll           binary
+*.jpg           binary
+*.png           binary

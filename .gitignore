@@ -1,0 +1,14 @@
+/build*/
+/.vs/
+__pycache__/
+*.dll
+*.exe
+*.pdb
+*.obj
+*.ilk
+*.exp
+*.lib
+*.zip
+.env
+.env.*
+config.local.json

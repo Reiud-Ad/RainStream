@@ -1,0 +1,40 @@
+#:schema https://rlbot.org/schemas/agent.json
+[settings]
+# This must be a unqiue identifier for your bot
+# recommended format is "developer/botname"
+agent_id = "Rain100B"
+# The name that will be displayed in game
+name = "Rain"
+# Path to loadout config from runner
+loadout_file = "loadout.toml"
+# Start your bot with run.bat so it can set the path to libtorch
+# You may get errors trying to run the .exe directly
+run_command = "cmd /C run.bat"
+# The command RLBot will call to start your bot on linux
+run_command_linux = "bash -lc ./run.sh"
+# This is the path to your bot's logo image,
+# which will be displayed in the GUI
+# The example bot does not have a logo
+logo_file = "logo.jpg"
+
+# These values are optional but useful metadata for helper programs
+[details]
+# Short description of the bot
+description = "Trained on 100,000,000,000 steps (214 years of Rocket League gameplay)"
+# Fun fact about the bot
+fun_fact = "Spent 3 weeks trying to get it to reset (never worked out)"
+# Link to your repository
+source_link = ""
+# Name of the bot's creator/developer
+developer = "Rou_Ad, RichardsWorld"
+# Programming language
+language = "C++"
+# ALL POSSIBLE TAGS: 1v1, teamplay, goalie, hoops, dropshot, snow-day, rumble, spike-rush, heatseeker, memebot
+# NOTE: Only add the goalie tag if your bot only plays as a goalie; this directly contrasts with the teamplay tag!
+# NOTE: Only add a tag for a special game mode if you bot properly supports it
+#
+# The ONE deviation from the original Rain100B bot.toml (20.08.2026): it shipped `tags = []`.
+# RLGymStream reads these tags to decide which formats a bot is eligible for, so an empty list
+# means it is never picked for any match. Everything else - agent_id, name, loadout, developer,
+# fun_fact - is left exactly as Rain100B had it.
+tags = ["1v1", "2v2", "3v3", "soccar", "teamplay"]
