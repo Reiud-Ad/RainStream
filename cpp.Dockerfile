@@ -312,19 +312,13 @@ RUN sed -i 's/\r$//' /tmp/copy-pe-dll-closure.sh && \
         torch_global_deps.dll \
         c10.dll
 
-# --- Shared assets (logo, models, config) --------------------------------
-# Copy the logo next to the configs. bot.toml references it by name, so it has to sit beside
-# bot.toml in each platform folder - not only at /out root. .jpg is what this bot ships.
-RUN for f in logo.jpg logo.png; do \
-        if [ -f "/src/rlbot/$f" ]; then \
-            cp "/src/rlbot/$f" /out/x86_64-unknown-linux-gnu/; \
-            cp "/src/rlbot/$f" /out/x86_64-pc-windows-msvc/; \
-            cp "/src/rlbot/$f" "/out/$f"; \
-            echo "Copied $f"; \
-        fi; \
-    done
+# --- Shared assets (models, run scripts) ---------------------------------
+# bot.toml, loadout.toml and the logo are bob's job: it copies them into
+# bob_build/<bot>/ and rewrites run_command to point at the platform folders.
+# Copying them here as well leaves a second, stale bot.toml inside each platform
+# folder, and RainStream reads that copy before the one bob generated.
 
-# Copy the two checkpoint folders, PRESERVING the directory structure.
+# Copy the three checkpoint folders, PRESERVING the directory structure.
 # This deliberately does NOT flatten *.lt into one directory the way a generic copy would:
 # this bot ships three checkpoints that all contain POLICY.lt and SHARED_HEAD.lt, so flattening
 # would silently have one overwrite the other and the bot would play the same model in every
@@ -340,15 +334,6 @@ RUN for d in checkpoint_1v1 checkpoint_2v2 checkpoint_3v3; do \
             cp "/src/rlbot/$d/SHARED_HEAD.lt" "/out/$plat/$d/"; \
         done; \
         echo "Copied checkpoint $d"; \
-    done
-
-# Copy config files (bot.toml, loadout.toml, run.sh / run.bat) beside both
-RUN for f in bot.toml loadout.toml; do \
-        if [ -f "/src/rlbot/$f" ]; then \
-            cp "/src/rlbot/$f" "/out/x86_64-unknown-linux-gnu/$f"; \
-            cp "/src/rlbot/$f" "/out/x86_64-pc-windows-msvc/$f"; \
-            echo "Copied $f"; \
-        fi; \
     done
 
 # Copy platform-specific run scripts.
