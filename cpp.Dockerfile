@@ -118,7 +118,7 @@ RUN printf '#!/bin/bash\nexec /usr/bin/clang++ --driver-mode=cl -target x86_64-p
 # Uses Clang in MSVC-compatible driver mode + xwin CRT/SDK
 # ============================================================
 RUN mkdir -p /src/cmake && \
-    cat > /src/cmake/toolchain-msvc.cmake << 'TOOLCHAIN_EOF'
+    cat > /src/cmake/toolchain-msvc.cmake <<'TOOLCHAIN_EOF'
 # Cross-compilation toolchain: Clang → x86_64-pc-windows-msvc
 # with CRT + Windows SDK provided by xwin.
 set(CMAKE_SYSTEM_NAME Windows)
